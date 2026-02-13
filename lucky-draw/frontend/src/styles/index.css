@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background: linear-gradient(135deg, #8B0000 0%, #C41E3A 50%, #DC2626 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-chinese-red hover:bg-deep-red text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply bg-imperial-gold hover:bg-bright-gold text-deep-red font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+
+  .btn-outline {
+    @apply border-2 border-imperial-gold text-imperial-gold hover:bg-imperial-gold hover:text-deep-red font-semibold py-3 px-6 rounded-lg transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-6;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-lg border-2 border-spring-red-200 focus:border-chinese-red focus:outline-none transition-colors bg-white/90;
+  }
+
+  .gold-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-imperial-gold via-bright-gold to-imperial-gold;
+  }
+
+  .chinese-border {
+    @apply border-4 border-imperial-gold rounded-lg;
+  }
+}
+
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  }
+
+  .box-shadow-glow {
+    box-shadow: 0 0 30px rgba(196, 30, 58, 0.3);
+  }
+}
