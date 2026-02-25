@@ -165,7 +165,7 @@ export const getLeaderboard = async (req, res) => {
         $lookup: {
           from: 'users',
           localField: '_id',
-          foreignField: '_id',
+          foreignField: 'user',
           as: 'user',
         },
       },
@@ -184,7 +184,7 @@ export const getLeaderboard = async (req, res) => {
           lastWin: 1,
         },
       },
-      { $sort: { totalAmount: -1, winCount: -1 } },
+      { $sort: { totalAmount: -1, winCount: -1, lastWin: -1 } },
       { $limit: 50 },
     ])
 

@@ -1,5 +1,15 @@
 import mongoose from 'mongoose'
 
+const prizeSchema = new mongoose.Schema({
+  name: String,
+  prizeType: {
+    type: String,
+    enum: ['cash', 'gift', 'special'],
+  },
+  value: Number,
+  description: String,
+})
+
 const lotterySchema = new mongoose.Schema(
   {
     user: {
@@ -8,15 +18,7 @@ const lotterySchema = new mongoose.Schema(
       required: true,
     },
     prize: {
-      type: {
-        name: String,
-        type: {
-          type: String,
-          enum: ['cash', 'gift', 'special'],
-        },
-        value: Number,
-        description: String,
-      },
+      type: prizeSchema,
       required: true,
     },
     amount: {

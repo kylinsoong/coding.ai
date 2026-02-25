@@ -1,11 +1,5 @@
 import { motion } from 'framer-motion'
 
-const lanternColors = [
-  'from-red-600 to-red-800',
-  'from-orange-500 to-red-700',
-  'from-red-500 to-red-700',
-]
-
 export default function Lantern() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -45,53 +39,14 @@ export default function Lantern() {
                   </radialGradient>
                 </defs>
                 
-                <ellipse
-                  cx="30"
-                  cy="15"
-                  rx="25"
-                  ry="8"
-                  fill="#D4AF37"
-                />
-                <rect
-                  x="10"
-                  y="15"
-                  width="40"
-                  height="60"
-                  rx="5"
-                  fill={`url(#lantern-grad-${i})`}
-                />
-                <ellipse
-                  cx="30"
-                  cy="75"
-                  rx="25"
-                  ry="8"
-                  fill="#D4AF37"
-                />
-                <circle
-                  cx="30"
-                  cy="45"
-                  r="812"
-                  fill="url(#lantern-glow-${i})"
-                />
-                <text
-                  x="30"
-                  y="50"
-"
-                  textAnchor="middle"
-                  fill="#FFD700"
-                  fontSize="14"
-                  fontWeight="bold"
-                >
+                <ellipse cx="30" cy="15" rx="25" ry="8" fill="#D4AF37" />
+                <rect x="10" y="15" width="40" height="60" rx="5" fill={`url(#lantern-grad-${i})`} />
+                <ellipse cx="30" cy="75" rx="25" ry="8" fill="#D4AF37" />
+                <circle cx="30" cy="45" r="8" fill={`url(#lantern-glow-${i})`} />
+                <text x="30" y="50" textAnchor="middle" fill="#FFD700" fontSize="14" fontWeight="bold">
                   福
                 </text>
-                <line
-                  x1="30"
-                  y1="75"
-                  x2="30"
-                  y2="100"
-                  stroke="#D4AF37"
-                  strokeWidth="2"
-                />
+                <line x1="30" y1="75" x2="30" y2="100" stroke="#D4AF37" strokeWidth="2" />
               </svg>
             </div>
           </motion.div>
