@@ -1,0 +1,74 @@
+{
+  "users": [
+    {
+      "id": "US001",
+      "username": "admin",
+      "password": "admin",
+      "role": "admin",
+      "email": "admin.updated@example.com",
+      "status": "active",
+      "createdAt": "2026-02-01T00:00:00Z",
+      "updatedAt": "2026-02-09T10:02:48.225Z"
+    },
+    {
+      "id": "US002",
+      "username": "kylin",
+      "password": "kylin",
+      "role": "admin",
+      "email": "kylin.updated@example.com",
+      "status": "active",
+      "createdAt": "2026-02-02T00:00:00Z",
+      "updatedAt": "2026-02-10T05:19:07.443Z"
+    },
+    {
+      "id": "US003",
+      "username": "testuser",
+      "password": "newpassword123",
+      "role": "user",
+      "email": "test@example.com",
+      "status": "active",
+      "createdAt": "2026-02-09T08:09:58.167Z",
+      "updatedAt": "2026-02-10T06:21:06.542Z"
+    },
+    {
+      "id": "US004",
+      "username": "newuser",
+      "password": "newadminpassword",
+      "role": "user",
+      "email": "updateduser@example.com",
+      "status": "active",
+      "createdAt": "2026-02-09T09:35:12.038Z",
+      "updatedAt": "2026-02-10T05:49:37.751Z"
+    },
+    {
+      "id": "US005",
+      "username": "minimaluser",
+      "password": "minimalpass",
+      "role": "user",
+      "email": "minimal@example.com",
+      "status": "active",
+      "createdAt": "2026-02-09T09:54:41.745Z",
+      "updatedAt": "2026-02-09T09:54:41.745Z"
+    },
+    {
+      "id": "US006",
+      "username": "testuser2",
+      "password": "password123",
+      "role": "user",
+      "email": "testuser2@example.com",
+      "status": "active",
+      "createdAt": "2026-02-09T14:25:58.546Z",
+      "updatedAt": "2026-02-09T14:25:58.546Z"
+    },
+    {
+      "id": "US007",
+      "username": "cloudadc",
+      "password": "test",
+      "role": "user",
+      "email": "songzhiqi@bytedance.com",
+      "status": "active",
+      "createdAt": "2026-02-10T06:20:09.177Z",
+      "updatedAt": "2026-02-10T06:20:09.177Z"
+    }
+  ]
+}

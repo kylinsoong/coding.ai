@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试登录</title>
+</head>
+<body>
+    <h1>测试登录功能</h1>
+    <div>
+        <label for="test-username">用户名:</label>
+        <input type="text" id="test-username" value="admin">
+    </div>
+    <div>
+        <label for="test-password">密码:</label>
+        <input type="password" id="test-password" value="admin">
+    </div>
+    <button id="test-login-btn">登录</button>
+    <div id="test-result"></div>
+
+    <script>
+        // 测试登录功能
+        document.getElementById('test-login-btn').addEventListener('click', async () => {
+            const username = document.getElementById('test-username').value;
+            const password = document.getElementById('test-password').value;
+            const resultDiv = document.getElementById('test-result');
+            
+            resultDiv.innerHTML = '正在登录...';
+            
+            try {
+                console.log('测试登录请求:', { username, password });
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                console.log('测试登录响应状态:', response.status);
+                const data = await response.json();
+                console.log('测试登录响应数据:', data);
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<p style="color: green;">登录成功! ${JSON.stringify(data)}</p>`;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red;">登录失败! ${JSON.stringify(data)}</p>`;
+                }
+            } catch (error) {
+                console.error('测试登录错误:', error);
+                resultDiv.innerHTML = `<p style="color: red;">登录出错: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贷后催收系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 侧边导航栏 -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <span>贷后催收系统</span>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-module="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span>仪表盘首页</span>
+                </li>
+                <li class="menu-item" data-module="borrowers">
+                    <i class="fas fa-users"></i>
+                    <span>借款人管理</span>
+                </li>
+                <li class="menu-item" data-module="tasks">
+                    <i class="fas fa-tasks"></i>
+                    <span>催收任务管理</span>
+                </li>
+                <li class="menu-item" data-module="records">
+                    <i class="fas fa-history"></i>
+                    <span>催收记录管理</span>
+                </li>
+                <li class="menu-item" data-module="analytics">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>统计分析</span>
+                </li>
+                <li class="menu-item" data-module="messages">
+                    <i class="fas fa-bell"></i>
+                    <span>消息中心</span>
+                    <span class="notification-badge">3</span>
+                </li>
+
+                <li class="menu-item" data-module="users">
+                    <i class="fas fa-user-cog"></i>
+                    <span>用户管理</span>
+                </li>
+                <li class="menu-item" data-module="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>系统设置</span>
+                </li>
+                <li class="menu-item logout-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>退出登录</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 顶部导航栏 -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="page-title" id="pageTitle">仪表盘首页</div>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="搜索...">
+                    </div>
+                    <button class="btn btn-primary" id="loginBtn" onclick="window.location.href='login.html'">
+                        <i class="fas fa-sign-in-alt"></i>
+                        登录
+                    </button>
+                    <div class="user-info dropdown">
+                        <i class="fas fa-user-circle"></i>
+                        <span>管理员</span>
+                        <i class="fas fa-chevron-down"></i>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item" onclick="window.location.href='user-profile.html'">
+                                <i class="fas fa-user"></i>
+                                <span>个人中心</span>
+                            </div>
+                            <div class="dropdown-item" onclick="window.location.href='settings.html'">
+                                <i class="fas fa-cog"></i>
+                                <span>系统设置</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item logout-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>退出登录</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容模块 -->
+            <div class="content-modules">
+                <!-- 仪表盘首页 -->
+                <div class="module active" id="dashboard">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number">1,247</div>
+                                <div class="stat-label">待催收客户</div>
+                                <div class="stat-trend up">
+                                    <i class="fas fa-arrow-up"></i> 12%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number">¥8,924,500</div>
+                                <div class="stat-label">待收金额</div>
+                                <div class="stat-trend up">
+                                    <i class="fas fa-arrow-up"></i> 8%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number">356</div>
+                                <div class="stat-label">今日任务</div>
+                                <div class="stat-trend down">
+                                    <i class="fas fa-arrow-down"></i> 5%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-danger">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number">42.5%</div>
+                                <div class="stat-label">本月完成率</div>
+                                <div class="stat-trend up">
+                                    <i class="fas fa-arrow-up"></i> 3.2%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h3>催收进度趋势</h3>
+                                <div class="card-actions">
+                                    <button class="action-btn">周</button>
+                                    <button class="action-btn active">月</button>
+                                    <button class="action-btn">季</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-line" style="font-size: 4rem; color: #e0e0e0;"></i>
+                                    <p>图表展示区域</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h3>逾期等级分布</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-pie-chart" style="font-size: 4rem; color: #e0e0e0;"></i>
+                                    <p>图表展示区域</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activities">
+                        <div class="card-header">
+                            <h3>最近活动</h3>
+                            <a href="#" class="view-all">查看全部</a>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon bg-success">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">客户张三已还款 ¥5,000</div>
+                                    <div class="activity-time">2024-05-20 14:30</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon bg-warning">
+                                    <i class="fas fa-exclamation"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">客户李四逾期30天</div>
+                                    <div class="activity-time">2024-05-20 11:20</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon bg-primary">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">已联系客户王五</div>
+                                    <div class="activity-time">2024-05-20 09:15</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 借款人管理 -->
+                <div class="module" id="borrowers">
+                    <div class="card-header">
+                        <h3>借款人管理</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-plus"></i> 添加借款人
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>状态</label>
+                            <select>
+                                <option>全部</option>
+                                <option>正常</option>
+                                <option>逾期</option>
+                                <option>已结清</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>逾期天数</label>
+                            <select>
+                                <option>全部</option>
+                                <option>1-30天</option>
+                                <option>31-60天</option>
+                                <option>61-90天</option>
+                                <option>90天以上</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>金额范围</label>
+                            <select>
+                                <option>全部</option>
+                                <option>¥0-5,000</option>
+                                <option>¥5,000-20,000</option>
+                                <option>¥20,000-50,000</option>
+                                <option>¥50,000以上</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>借款人ID</th>
+                                    <th>姓名</th>
+                                    <th>身份证号</th>
+                                    <th>联系电话</th>
+                                    <th>借款金额</th>
+                                    <th>逾期天数</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>BR001</td>
+                                    <td>张三</td>
+                                    <td>310101********1234</td>
+                                    <td>138****1234</td>
+                                    <td>¥15,000</td>
+                                    <td>15</td>
+                                    <td><span class="status-badge warning">逾期</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">查看</button>
+                                        <button class="btn btn-sm btn-success">催收</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>BR002</td>
+                                    <td>李四</td>
+                                    <td>310101********5678</td>
+                                    <td>139****5678</td>
+                                    <td>¥8,000</td>
+                                    <td>45</td>
+                                    <td><span class="status-badge danger">严重逾期</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">查看</button>
+                                        <button class="btn btn-sm btn-success">催收</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>BR003</td>
+                                    <td>王五</td>
+                                    <td>310101********9012</td>
+                                    <td>137****9012</td>
+                                    <td>¥25,000</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge warning">逾期</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">查看</button>
+                                        <button class="btn btn-sm btn-success">催收</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="page-btn">上一页</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">下一页</button>
+                    </div>
+                </div>
+
+                <!-- 催收任务管理 -->
+                <div class="module" id="tasks">
+                    <div class="card-header">
+                        <h3>催收任务管理</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-plus"></i> 分配任务
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>任务状态</label>
+                            <select>
+                                <option>全部</option>
+                                <option>待处理</option>
+                                <option>处理中</option>
+                                <option>已完成</option>
+                                <option>已关闭</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>催收员</label>
+                            <select>
+                                <option>全部</option>
+                                <option>催收员A</option>
+                                <option>催收员B</option>
+                                <option>催收员C</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>优先级</label>
+                            <select>
+                                <option>全部</option>
+                                <option>高</option>
+                                <option>中</option>
+                                <option>低</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>任务ID</th>
+                                    <th>借款人</th>
+                                    <th>借款金额</th>
+                                    <th>逾期天数</th>
+                                    <th>催收员</th>
+                                    <th>优先级</th>
+                                    <th>状态</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TK001</td>
+                                    <td>张三</td>
+                                    <td>¥15,000</td>
+                                    <td>15</td>
+                                    <td>催收员A</td>
+                                    <td><span class="priority-badge medium">中</span></td>
+                                    <td><span class="status-badge warning">处理中</span></td>
+                                    <td>2024-05-20</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">查看</button>
+                                        <button class="btn btn-sm btn-success">执行</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TK002</td>
+                                    <td>李四</td>
+                                    <td>¥8,000</td>
+                                    <td>45</td>
+                                    <td>催收员B</td>
+                                    <td><span class="priority-badge high">高</span></td>
+                                    <td><span class="status-badge warning">待处理</span></td>
+                                    <td>2024-05-20</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">查看</button>
+                                        <button class="btn btn-sm btn-success">执行</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 催收记录管理 -->
+                <div class="module" id="records">
+                    <div class="card-header">
+                        <h3>催收记录管理</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-primary">
+                                <i class="fas fa-file-alt"></i> 导出记录
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>借款人</label>
+                            <input type="text" placeholder="输入借款人姓名">
+                        </div>
+                        <div class="filter-group">
+                            <label>日期范围</label>
+                            <input type="date">
+                            <span>至</span>
+                            <input type="date">
+                        </div>
+                        <div class="filter-group">
+                            <label>催收方式</label>
+                            <select>
+                                <option>全部</option>
+                                <option>电话</option>
+                                <option>短信</option>
+                                <option>上门</option>
+                                <option>邮件</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>记录ID</th>
+                                    <th>借款人</th>
+                                    <th>催收员</th>
+                                    <th>催收方式</th>
+                                    <th>催收结果</th>
+                                    <th>下次跟进时间</th>
+                                    <th>备注</th>
+                                    <th>创建时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>RC001</td>
+                                    <td>张三</td>
+                                    <td>催收员A</td>
+                                    <td>电话</td>
+                                    <td>承诺还款</td>
+                                    <td>2024-05-25</td>
+                                    <td>客户承诺5月25日还款</td>
+                                    <td>2024-05-20 14:30</td>
+                                </tr>
+                                <tr>
+                                    <td>RC002</td>
+                                    <td>李四</td>
+                                    <td>催收员B</td>
+                                    <td>短信</td>
+                                    <td>未联系上</td>
+                                    <td>2024-05-21</td>
+                                    <td>多次拨打未接通</td>
+                                    <td>2024-05-20 11:20</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 统计分析 -->
+                <div class="module" id="analytics">
+                    <div class="card-header">
+                        <h3>统计分析</h3>
+                    </div>
+
+                    <div class="analytics-grid">
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h4>催收成功率趋势</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-area" style="font-size: 3rem; color: #e0e0e0;"></i>
+                                    <p>图表展示区域</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h4>催收方式效果对比</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-bar" style="font-size: 3rem; color: #e0e0e0;"></i>
+                                    <p>图表展示区域</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h4>逾期金额分布</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-pie" style="font-size: 3rem; color: #e0e0e0;"></i>
+                                    <p>图表展示区域</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="card-header">
+                                <h4>催收员绩效排名</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-line" style="font-size: 3rem; color: #e0e0e0;"></i>
+                                    <p>图表展示区域</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 消息中心 -->
+                <div class="module" id="messages">
+                    <div class="card-header">
+                        <h3>消息中心</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i> 清空已读
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="messages-container">
+                        <div class="message-item unread">
+                            <div class="message-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-title">新的催收任务分配</div>
+                                <div class="message-text">您有3个新的催收任务需要处理，请及时查看。</div>
+                                <div class="message-time">2024-05-20 15:00</div>
+                            </div>
+                        </div>
+
+                        <div class="message-item unread">
+                            <div class="message-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-title">高优先级任务提醒</div>
+                                <div class="message-text">客户李四已逾期45天，属于高优先级任务，请尽快处理。</div>
+                                <div class="message-time">2024-05-20 14:00</div>
+                            </div>
+                        </div>
+
+                        <div class="message-item">
+                            <div class="message-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-title">任务完成通知</div>
+                                <div class="message-text">您的催收任务TK001已完成，感谢您的工作。</div>
+                                <div class="message-time">2024-05-20 13:00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 提醒设置 -->
+
+
+        <!-- 用户管理模态框 -->
+        <div class="modal" id="userModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">添加用户</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="login-form">
+                        <input type="hidden" id="userId">
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" id="username" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" id="email" placeholder="请输入邮箱">
+                        </div>
+                        <div class="form-group" id="passwordGroup">
+                            <label for="password">密码</label>
+                            <input type="password" id="password" placeholder="请输入密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="role">角色</label>
+                            <select id="role">
+                                <option value="admin">管理员</option>
+                                <option value="user">催收员</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="statusGroup" style="display: none;">
+                            <label for="status">状态</label>
+                            <select id="status">
+                                <option value="active">启用</option>
+                                <option value="inactive">禁用</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary close-modal">取消</button>
+                    <button class="btn btn-primary" id="saveUserBtn">保存</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 重置密码模态框 -->
+        <div class="modal" id="resetPasswordModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>重置密码</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="resetUserId">
+                        <div class="form-group">
+                            <label for="newPassword">新密码</label>
+                            <input type="password" id="newPassword" placeholder="请输入新密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">确认新密码</label>
+                            <input type="password" id="confirmPassword" placeholder="请再次输入新密码">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary close-modal">取消</button>
+                    <button class="btn btn-primary" id="resetPasswordBtn">重置密码</button>
+                </div>
+            </div>
+        </div>
+
+                <!-- 用户管理 -->
+                <div class="module" id="users">
+                    <div class="card-header">
+                        <h3>用户管理</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-primary" id="addUserBtn">
+                                <i class="fas fa-user-plus"></i> 添加用户
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>角色</label>
+                            <select>
+                                <option>全部</option>
+                                <option>管理员</option>
+                                <option>催收员</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>状态</label>
+                            <select>
+                                <option>全部</option>
+                                <option>启用</option>
+                                <option>禁用</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>用户名</label>
+                            <input type="text" placeholder="输入用户名">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>用户ID</th>
+                                    <th>用户信息</th>
+                                    <th>角色</th>
+                                    <th>状态</th>
+                                    <th>创建时间</th>
+                                    <th>最后更新</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 用户数据将通过JavaScript动态加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-footer">
+                        <div class="page-size-selector">
+                            <label>每页显示:</label>
+                            <select id="pageSizeSelect">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+
+                        <div class="pagination" id="usersPagination">
+                            <button class="page-btn" id="prevPage">上一页</button>
+                            <span id="pageNumbers"></span>
+                            <button class="page-btn" id="nextPage">下一页</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- 系统设置 -->
+                <div class="module" id="settings">
+                    <div class="card-header">
+                        <h3>系统设置</h3>
+                    </div>
+
+                    <div class="settings-container">
+                        <div class="setting-group">
+                            <div class="setting-header">
+                                <h4>用户信息</h4>
+                            </div>
+                            <div class="form-group">
+                                <label>用户名</label>
+                                <input type="text" value="管理员" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>邮箱</label>
+                                <input type="email" value="admin@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label>联系电话</label>
+                                <input type="tel" value="138****1234">
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="setting-header">
+                                <h4>密码设置</h4>
+                            </div>
+                            <div class="form-group">
+                                <label>原密码</label>
+                                <input type="password">
+                            </div>
+                            <div class="form-group">
+                                <label>新密码</label>
+                                <input type="password">
+                            </div>
+                            <div class="form-group">
+                                <label>确认新密码</label>
+                                <input type="password">
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="setting-header">
+                                <h4>系统配置</h4>
+                            </div>
+                            <div class="form-group">
+                                <label>默认逾期提醒天数</label>
+                                <input type="number" value="30">
+                            </div>
+                            <div class="form-group">
+                                <label>任务自动分配</label>
+                                <select>
+                                    <option>开启</option>
+                                    <option>关闭</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="setting-header">
+                                <h4>任务提醒</h4>
+                            </div>
+                            <div class="setting-items">
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <div class="setting-title">新任务提醒</div>
+                                        <div class="setting-description">当有新的催收任务分配时收到提醒</div>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <div class="setting-title">任务到期提醒</div>
+                                        <div class="setting-description">任务到期前24小时收到提醒</div>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="setting-header">
+                                <h4>逾期提醒</h4>
+                            </div>
+                            <div class="setting-items">
+                                <div class="setting-item">
+                                    <div class="setting-info">
+                                        <div class="setting-title">严重逾期提醒</div>
+                                        <div class="setting-description">当客户逾期超过30天时收到提醒</div>
+                                    </div>
+                                    <div class="setting-control">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-actions">
+                            <button class="btn btn-primary">保存设置</button>
+                            <button class="btn btn-secondary">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
